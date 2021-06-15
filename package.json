@@ -1,0 +1,26 @@
+{
+  "name": "infobot",
+  "version": "1.0.0",
+  "description": "Discord Bot for accessing information.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mubdiur/InfoBot.git"
+  },
+  "keywords": [
+    "Discord",
+    "infobot",
+    "discord",
+    "bot"
+  ],
+  "author": "Md. Mubdiur Rahman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mubdiur/InfoBot/issues"
+  },
+  "homepage": "https://github.com/mubdiur/InfoBot#readme"
+}
