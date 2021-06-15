@@ -22,5 +22,10 @@
   "bugs": {
     "url": "https://github.com/mubdiur/InfoBot/issues"
   },
-  "homepage": "https://github.com/mubdiur/InfoBot#readme"
+  "homepage": "https://github.com/mubdiur/InfoBot#readme",
+  "dependencies": {
+    "discord-reply": "^0.1.2",
+    "discord.js": "^12.5.3",
+    "express": "^4.17.1"
+  }
 }
