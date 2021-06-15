@@ -21,7 +21,7 @@ const { keepAlive } = require('./keepAlive');
    }
  });
  
- client.login("$BOT_TOKEN");
+ client.login(process.env.BOT_TOKEN);
 
 
 
