@@ -7,7 +7,9 @@ module.exports = {
         const embed = new MessageEmbed()
             .setColor('#333333')
             .setAuthor(user.username)
-            .setImage(user.displayAvatarURL())
+            .setImage('https://cdn.discordapp.com/avatars/'
+                + user.id
+                +'/' + user.avatar +'.png?size=1024')
         msg.channel.send(embed)
         return null
     }
