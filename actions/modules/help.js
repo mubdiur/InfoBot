@@ -11,7 +11,7 @@ module.exports = {
         })
         return new MessageEmbed()
             .setTitle('Help Menu')
-            .setColor('#888888')
+            .setColor('#4b99cc')
             .setDescription(helpStr)
     }
 }
