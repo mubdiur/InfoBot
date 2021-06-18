@@ -37,7 +37,7 @@ client.on('message', async (msg) => {
             
             const commandless = prefixless.substr(command.length).trim()
             const reply = await actions[command].getReply(msg, commandless)
-            msg.lineReply(reply)
+            if(reply != null) msg.lineReply(reply)
         }
     }
 });
