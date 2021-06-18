@@ -13,8 +13,8 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    client.user.setStatus('type: info help')
-        .then(console.log)
+    client.user.setActivity('info help', { type: 'WATCHING' })
+        .then(presence => console.log(`Activity set to ${presence.activities[0].name}`))
         .catch(console.error);
 });
 
