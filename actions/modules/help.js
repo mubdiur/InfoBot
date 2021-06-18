@@ -2,7 +2,7 @@ const actions = require('../index')
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
-    helptext: "Shows the help menu with commands wish short description.",
+    helptext: "Shows the help menu with commands with short description.",
     getReply: (msg, text) => {
         const keys = Object.keys(actions)
         let helpStr = "";
