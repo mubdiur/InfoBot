@@ -7,6 +7,6 @@ module.exports = {
         return new MessageEmbed()
             .setColor('#333333')
             .setAuthor(user.username)
-            .setImage(user.displayAvatarURL())
+            .setImage(user.avatarURL())
     }
 }
