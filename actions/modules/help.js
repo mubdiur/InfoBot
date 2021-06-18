@@ -7,11 +7,11 @@ module.exports = {
         const keys = Object.keys(actions)
         let helpStr = "";
         keys.forEach(key => {
-            helpStr += '\n`key` - ' + actions[key].helptext;
+            helpStr += '\n`'+ key +'` - ' + actions[key].helptext;
         })
         return new MessageEmbed()
             .setTitle('Help Menu')
-            .setColor('#fbfbfb')
+            .setColor('#888888')
             .setDescription(helpStr)
     }
 }
