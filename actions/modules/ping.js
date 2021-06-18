@@ -1,5 +1,5 @@
 module.exports = {
-    helptext: "Replies pong when user says `info ping`",
+    helptext: "Replies with `Pong`",
     getReply: (msg, text) => {
         return 'Pong'
     }
