@@ -13,6 +13,9 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    client.user.setStatus('type: info help')
+        .then(console.log)
+        .catch(console.error);
 });
 
 client.on('message', async (msg) => {
@@ -34,10 +37,10 @@ client.on('message', async (msg) => {
             const command = matched.sort((a, b) => {
                 return b.length - a.length
             })[0]
-            
+
             const commandless = prefixless.substr(command.length).trim()
             const reply = await actions[command].getReply(msg, commandless)
-            if(reply != null) msg.lineReply(reply)
+            if (reply != null) msg.lineReply(reply)
         }
     }
 });
