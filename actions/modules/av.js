@@ -6,7 +6,7 @@ module.exports = {
         const user = msg.mentions.users.first() || msg.author;
         return new MessageEmbed()
             .setColor('#333333')
-            .setAuthor(user.username)
+            .setAuthor(user.tag)
             .setImage(user.displayAvatarURL({
                 dynamic: true,
                 size: 1024
