@@ -20,7 +20,11 @@ client.on('ready', () => {
 
 client.on('message', async (msg) => {
     if (msg.author.bot) return;
-    const lower = msg.content.toLocaleLowerCase();
+    const lower = msg.content.toLocaleLowerCase().trim();
+    if (lower === 'ping') {
+        msg.lineReply('Pong');
+        return;
+    }
     if (lower.startsWith('info')) {
         const prefixless = msg.content.substr(4).trim()
         const prefixlesslower = msg.content.substr(4).trim()
