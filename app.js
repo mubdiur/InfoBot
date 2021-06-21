@@ -8,8 +8,10 @@ const actions = require('./actions')
 /**
  * Discord Client
  */
+let intents = new Discord.Intents(Discord.Intents.NON_PRIVILEGED);
+intents.add('GUILD_MEMBERS');
 
-const client = new Discord.Client();
+const client = new Discord.Client({ ws: { intents: intents } });
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -19,7 +21,11 @@ client.on('ready', () => {
 });
 
 client.on('message', async (msg) => {
+    // ignore bot messages
     if (msg.author.bot) return;
+    // ignore dm messages
+    if (msg.channel.type === 'dm') return;
+
     const lower = msg.content.toLocaleLowerCase().trim();
     if (lower === 'ping') {
         msg.lineReply('Pong');
@@ -44,15 +50,10 @@ client.on('message', async (msg) => {
 
             const commandless = prefixless.substr(command.length).trim()
             const reply = await actions[command].getReply(msg, commandless)
-            if (reply != null) msg.lineReply(reply)
+            if (reply !== null) msg.lineReply(reply)
         }
     }
 });
 
 client.login(process.env.BOT_TOKEN);
-
-
-
-
-
 keepAlive()
