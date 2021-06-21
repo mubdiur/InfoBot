@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js')
 
 module.exports = {
     helptext: "Shows avater of the user himself or a mentioned user",
-    getReply: (msg, text) => {
+    getReply: async (msg, text) => {
         const trimmed = text.trim().toLowerCase();
         // if an id is given
 
