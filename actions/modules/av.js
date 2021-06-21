@@ -32,7 +32,9 @@ module.exports = {
                     }
                     members.push(memberItem)
                 }
-                members.forEach(member => {
+
+
+                for await (member of members) {
                     // if the anything matched
                     if (
                         trimmed === member.id ||
@@ -44,7 +46,7 @@ module.exports = {
                         const matchedMember = await msg.guild.members.fetch(member.id);
                         user = matchedMember.user;
                     }
-                })
+                }
             }
         }
         let reply = "User not found in this server!"
