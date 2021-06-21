@@ -13,7 +13,7 @@ module.exports = {
         user = msg.mentions.users.first();
 
         // if user is null
-        if (user === null) {
+        if (!user) {
             if (trimmed.length > 0) {
                 const membersObj = await msg.guild.members.fetch();
                 const membersLarge = JSON.parse(JSON.stringify(membersObj));
@@ -27,7 +27,7 @@ module.exports = {
                         id: member.userID,
                         tag: fetchedMember.user.tag.toLowerCase(),
                         tagpart: tagpart.toLowerCase(),
-                        nick: member.nickname.toLowerCase(),
+                        nick: member.nickname ? member.nickname.toLowerCase() : null,
                         name: member.displayName.toLowerCase()
                     }
                     members.push(memberItem)
@@ -47,10 +47,12 @@ module.exports = {
                         user = matchedMember.user;
                     }
                 }
+            } else {
+                user = msg.author;
             }
         }
         let reply = "User not found in this server!"
-        if (user !== null) {
+        if (user) {
             reply =  new MessageEmbed()
             .setColor('#333333')
             .setAuthor(user.tag)
