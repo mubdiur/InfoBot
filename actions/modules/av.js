@@ -10,7 +10,7 @@ module.exports = {
         let user = null;
 
 
-        const user = msg.mentions.users.first();
+        user = msg.mentions.users.first();
 
         // if user is null
         if (user === null) {
