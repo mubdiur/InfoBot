@@ -24,8 +24,10 @@
   },
   "homepage": "https://github.com/mubdiur/InfoBot#readme",
   "dependencies": {
+    "discord-paginationembed": "^2.1.0",
     "discord-reply": "^0.1.2",
     "discord.js": "^12.5.3",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "g-i-s": "^2.1.6"
   }
 }
