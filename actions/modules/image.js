@@ -9,7 +9,10 @@ module.exports = {
                /**
                 * Get the search result
                 */
-               gis(text, (error, results) => {
+               gis({
+                    searchTerm: text,
+                    queryStringAddition: '&safe=active'
+               }, (error, results) => {
                     if (error) {
                          console.log(error);
                     }
