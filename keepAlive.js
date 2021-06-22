@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 80
+const port = process.end.PORT || 4000;
 
 function keepAlive() {
     app.get('/', (req, res) => {

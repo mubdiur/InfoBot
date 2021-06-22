@@ -1,7 +1,7 @@
 require('discord-reply');
 const Discord = require('discord.js');
 
-// const { keepAlive } = require('./keepAlive');
+const { keepAlive } = require('./keepAlive');
 const actions = require('./actions')
 
 
@@ -56,4 +56,4 @@ client.on('message', async (msg) => {
 });
 
 client.login(process.env.BOT_TOKEN);
-// keepAlive()
+keepAlive()
