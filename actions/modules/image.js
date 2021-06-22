@@ -30,12 +30,16 @@ module.exports = {
                                    .setImage(links[i])
                               embeds.push(embed)
                          }
-                         new Pagination.Embeds()
-                              .setArray(embeds)
-                              .setChannel(msg.channel)
-                              .setDisabledNavigationEmojis(['delete', 'jump'])
-                              .setTimeout(180000)
-                              .build()
+                         if (embeds.length < 1) {
+                              msg.reply('No image found for that search term!');
+                         } else {
+                              new Pagination.Embeds()
+                                   .setArray(embeds)
+                                   .setChannel(msg.channel)
+                                   .setDisabledNavigationEmojis(['delete', 'jump'])
+                                   .setTimeout(180000)
+                                   .build()
+                         }
 
                     }
                });
