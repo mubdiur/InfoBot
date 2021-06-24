@@ -37,6 +37,10 @@ module.exports = {
                                    .setArray(embeds)
                                    .setChannel(msg.channel)
                                    .setDisabledNavigationEmojis(['delete', 'jump'])
+                                   .setNavigationEmojis({
+                                        back: '⬅️',
+                                        forward: '➡️'
+                                   })
                                    .setTimeout(180000)
                                    .build()
                          }
