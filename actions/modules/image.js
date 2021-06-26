@@ -26,7 +26,7 @@ module.exports = {
                          if (links.length < 10) linkslen = links.length
                          for (let i = 0; i < links.length && i < 10; i++) {
                               const embed = new MessageEmbed()
-                                   .setTitle(text + ` ${i + 1} of ${linkslen}`)
+                                   .setAuthor(text + ` ${i + 1} of ${linkslen}`)
                                    .setImage(links[i])
                               embeds.push(embed)
                          }
