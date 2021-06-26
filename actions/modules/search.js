@@ -2,7 +2,7 @@ const DDG = require('duck-duck-scrape');
 const { MessageEmbed } = require('discord.js');
 const Pagination = require('discord-paginationembed');
 const unsafe = require('./unsafe')
-import {decode} from 'html-entities';
+const { decode } = require('html-entities');
 
 module.exports = {
      helptext: "Searches on the web.",
@@ -30,7 +30,7 @@ module.exports = {
                          .split('<b>').join('**')
                          .split('</b>').join('**')
                          .split('(listen)').join('');
-                    
+
                     const embed = new MessageEmbed()
                          .setAuthor(text + ` ${i} of ${resLen - 1}`)
                          .setTitle(decode(resArray[i].title))
