@@ -1,4 +1,3 @@
-const beautify = require('json-beautify');
 const DDG = require('duck-duck-scrape');
 const { MessageEmbed } = require('discord.js');
 const Pagination = require('discord-paginationembed');
