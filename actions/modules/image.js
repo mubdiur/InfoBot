@@ -1,10 +1,15 @@
 const gis = require('g-i-s');
 const { MessageEmbed } = require('discord.js');
 const Pagination = require('discord-paginationembed');
+const unsafe = require('./unsafe')
 
 module.exports = {
      helptext: "Searches for images on the web",
      getReply: async (msg, text) => {
+          if (unsafe(text)) {
+               msg.reply("It is unsafe to search that.");
+               return null;
+          }
           if (text.trim().length > 0) {
                /**
                 * Get the search result
