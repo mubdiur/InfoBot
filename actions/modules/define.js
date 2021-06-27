@@ -23,7 +23,9 @@ module.exports = {
             try {
                 results = await dictionary.define(text);
                 resArray = Array.from(results.definitions);
-            } catch (e) { }
+            } catch (e) {
+                console.error(e)
+            }
             
             if (!results || !resArray) {
                 msg.reply('The term was not found!');
