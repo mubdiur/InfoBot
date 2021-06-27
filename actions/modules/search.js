@@ -21,9 +21,9 @@ module.exports = {
                 * for now just show the first one
                 */
                const embeds = [];
-               let resLen = 11;
-               if (resArray.length < 11) resLen = resArray.length + 1
-               for (let i = 1; i < resArray.length && i < 11; i++) {
+               let resLen = 10;
+               if (resArray.length < 10) resLen = resArray.length
+               for (let i = 0; i < resArray.length && i < 10; i++) {
 
                     const rawDescription = "" + resArray[i].description;
                     const description = rawDescription
@@ -32,7 +32,7 @@ module.exports = {
                          .split('(listen)').join('');
 
                     const embed = new MessageEmbed()
-                         .setAuthor(text + ` ${i} of ${resLen - 1}`)
+                         .setAuthor(text + ` ${i+1} of ${resLen}`)
                          .setTitle(decode(resArray[i].title))
                          .setDescription(decode(description))
                          .setURL(resArray[i].url)
