@@ -6,7 +6,7 @@ const Owl = require('owlbot-js')
 
 
 
-const dictionary = Owl(process.env.OWLAPI);
+const dictionary = Owl(process.env.OWL_TOKEN);
 
 
 module.exports = {
