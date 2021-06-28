@@ -1,12 +1,9 @@
 const { MessageEmbed } = require('discord.js');
 const Pagination = require('discord-paginationembed');
 const unsafe = require('./unsafe')
-const Owl = require('owlbot-js')
+const got = require('got')
 
 
-
-
-const dictionary = Owl(process.env.OWL_TOKEN);
 
 
 module.exports = {
@@ -21,38 +18,52 @@ module.exports = {
             let resArray = null;
 
             try {
-                results = await dictionary.define(text);
-                resArray = Array.from(results.definitions);
-            } catch (e) {
-                console.error(e)
-            }
-            
+                results = await got(`https://api.dictionaryapi.dev/api/v2/entries/en_US/`
+                    + text.split(' ').join('').trim());
+
+                resArray = Array.from(JSON.parse(results.body));
+            } catch (e) { }
+
             if (!results || !resArray) {
                 msg.reply('The term was not found!');
                 return null;
             }
-            
-            
-            
+
+
+
             /**
              * for now just show the first one
              */
-            
-            
+
+
             const embeds = [];
             let resLen = 10;
             if (resArray.length < 10) resLen = resArray.length
             for (let i = 0; i < resArray.length && i < 10; i++) {
-                const embed = new MessageEmbed()
-                    .setAuthor(text + ` ${i + 1} of ${resLen}`)
-                    .addField('Definition', resArray[i].definition)
-                    .addField('Type', resArray[i].type);
-                if (resArray[i].example) {
-                    const example = resArray[i].example
-                        .split('<b>').join('')
-                        .split('</b>').join('');
-                    embed.addField('Example', "*`" + example + "`*")
+
+                let definitions = resArray[i].phonetics
+                    .map(ph => ph.text).join(", ") + "\n\n";
+                
+                const meanings = resArray[i].meanings;
+                
+                for (const meaning of meanings) {
+                    
+                    definitions += "***" + meaning.partOfSpeech + ":***\n";
+                    
+                    for (const defn of meaning.definitions) {
+                        for (const [key, value] of Object.entries(defn)) {
+                            if (key === 'example') definitions += `*\`${value}\`*` + "\n";
+                            else definitions += value + "\n";
+                        }
+                        definitions += "\n";
+                    }
                 }
+                
+                const embed = new MessageEmbed()
+                    .setFooter(text + ` ${i + 1}/${resLen}`)
+                    .setTitle(resArray[i].word)
+                    .setDescription(definitions);
+                
                 embeds.push(embed)
             }
             if (embeds.length < 1) {
