@@ -9,7 +9,7 @@ const actions = require('./actions')
  * Discord Client
  */
 let intents = new Discord.Intents(Discord.Intents.NON_PRIVILEGED);
-intents.add('GUILD_MEMBERS');
+intents.add('GUILDS', 'GUILD_PRESENCES', 'GUILD_MEMBERS');
 
 const client = new Discord.Client({ ws: { intents: intents } });
 
