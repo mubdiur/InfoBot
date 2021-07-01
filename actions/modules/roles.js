@@ -1,7 +1,7 @@
 const actions = require('../index')
 const { MessageEmbed } = require('discord.js')
 const findmember = require('./findmember');
-
+const randomHexColor = require("random-hex-color")
 module.exports = {
     helptext: "Shows roles",
     getReply: async (msg, text) => {
@@ -22,7 +22,7 @@ module.exports = {
         }
 
         reply = new MessageEmbed()
-            .setColor('#333333')
+            .setColor(randomHexColor())
             .setAuthor("User - " + member.user.tag)
             .setTitle('Total - ' + len)
             .setDescription(rolesdes)

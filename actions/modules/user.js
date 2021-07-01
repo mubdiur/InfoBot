@@ -1,7 +1,7 @@
 const actions = require('../index')
 const { MessageEmbed } = require('discord.js')
 const findmember = require('./findmember');
-
+const randomHexColor = require("random-hex-color")
 module.exports = {
     helptext: "Shows user information",
     getReply: async (msg, text) => {
@@ -9,7 +9,7 @@ module.exports = {
         if (!member) return null;
         const user = member.user;
         reply = new MessageEmbed()
-            .setColor('#333333')
+            .setColor(randomHexColor())
             .setTitle('User Info')
             .setThumbnail(user.displayAvatarURL({
                 dynamic: true,

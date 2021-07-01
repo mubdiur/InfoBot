@@ -1,6 +1,6 @@
 const actions = require('../index')
 const { MessageEmbed } = require('discord.js')
-
+const randomHexColor = require("random-hex-color")
 module.exports = {
     helptext: "Shows this help menu.",
     getReply: (msg, text) => {
@@ -11,7 +11,7 @@ module.exports = {
         })
         return new MessageEmbed()
             .setTitle('Help Menu')
-            .setColor('#4b99cc')
+            .setColor(randomHexColor())
             .setDescription(helpStr)
     }
 }

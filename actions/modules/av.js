@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
 const findmember = require('./findmember');
-
+const randomHexColor = require("random-hex-color")
 module.exports = {
     helptext: "Shows avater",
     getReply: async (msg, text) => {
@@ -8,7 +8,7 @@ module.exports = {
         if (!member) return;
         const user = member.user;
         reply = new MessageEmbed()
-            .setColor('#333333')
+            .setColor(randomHexColor())
             .setAuthor(user.tag)
             .setImage(user.displayAvatarURL({
                 dynamic: true,
