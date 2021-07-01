@@ -1,13 +1,13 @@
 const { MessageEmbed } = require('discord.js')
-const finduser = require('./finduser');
+const findmember = require('./findmember');
 
 module.exports = {
-    helptext: "Shows avater of the user himself or a mentioned user",
+    helptext: "Shows avater",
     getReply: async (msg, text) => {
-        const user = await finduser(msg, text)
-        let reply = "User not found in this server!"
-        if (user) {
-            reply =  new MessageEmbed()
+        const member = await findmember(msg, text)
+        if (!member) return;
+        const user = member.user;
+        reply = new MessageEmbed()
             .setColor('#333333')
             .setAuthor(user.tag)
             .setImage(user.displayAvatarURL({
@@ -15,10 +15,8 @@ module.exports = {
                 size: 1024
             }))
 
-            msg.channel.send(reply);
-        } else {
-            msg.lineReply(reply);
-        }
+        msg.channel.send(reply);
+
 
         return null;
         // msg.channel.send(embed)

@@ -1,6 +1,9 @@
 module.exports['help'] = require('./modules/help');
 module.exports['ping'] = require('./modules/ping');
 module.exports['av'] = require('./modules/av');
+module.exports['user'] = require('./modules/user');
 module.exports['search'] = require('./modules/search');
 module.exports['image'] = require('./modules/image');
 module.exports['define'] = require('./modules/define');
+module.exports['perms'] = require('./modules/perms');
+module.exports['roles'] = require('./modules/roles');
