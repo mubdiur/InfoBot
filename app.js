@@ -33,7 +33,7 @@ client.on('message', async (msg) => {
     }
     if (lower.startsWith('info')) {
         const prefixless = msg.content.substr(4).trim()
-        const prefixlesslower = msg.content.substr(4).trim()
+        const prefixlesslower = msg.content.substr(4).toLowerCase().trim()
         /**
          * get the keys
          */
