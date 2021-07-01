@@ -8,7 +8,7 @@ module.exports = {
         if (!member) return;
         const user = member.user;
         reply = new MessageEmbed()
-            .setColor("#232323")
+            .setColor("#303030")
             .setAuthor(user.tag)
             .setImage(user.displayAvatarURL({
                 dynamic: true,
