@@ -1,3 +1,4 @@
+require('dotenv').config()
 require("discord-reply");
 const Discord = require("discord.js");
 
@@ -8,6 +9,8 @@ const LanguageDetect = require("languagedetect");
 const lngDetector = new LanguageDetect();
 const LanguageTranslatorV3 = require("ibm-watson/language-translator/v3");
 const { IamAuthenticator } = require("ibm-watson/auth");
+
+const stringSimilarity = require("string-similarity");
 /**
  * Discord Client
  */
@@ -61,17 +64,23 @@ client.on("message", async (msg) => {
     } else {
         if (msg.channel.id !== "954077373794492496") return;
 
-        const lang = lngDetector.detect(msg.content, 1)[0][0];
-
-        if (lang === "english") return;
+        let lang = lngDetector.detect(msg.content, 20);
+        if (lang.length === 0) return;
+        if(lang[0][0] === "en") return;
 
         const languageTranslator = new LanguageTranslatorV3({
-            version: "{version}",
+            version: "2018-05-01",
             authenticator: new IamAuthenticator({
                 apikey: process.env.TRANSLATOR_API_KEY,
             }),
             serviceUrl: process.env.TRANSLATOR_API_URL,
         });
+
+
+        const authorName = msg.author.tag;
+        const authorAvatarURL = msg.author.avatarURL();
+
+
         languageTranslator
             .translate({
                 text: msg.content,
@@ -79,17 +88,13 @@ client.on("message", async (msg) => {
                 target: "en",
             })
             .then((response) => {
+
+                const translatedText = response.result.translations[0].translation;
+                if(stringSimilarity.compareTwoStrings(msg.content, translatedText) > 0.6) return;
                 reply = new MessageEmbed()
-                    .setAuthor({
-                        name: msg.author.tag,
-                        iconURL: msg.author.displayAvatarURL({
-                            dynamic: true,
-                            size: 1024,
-                        }),
-                    })
-                    .setDescription(response.translations[0].translation);
+                    .setAuthor(authorName, authorAvatarURL)
+                    .setDescription(translatedText);
                 msg.channel.send(reply);
-                console.log(JSON.stringify(response.result, null, 2));
             })
             .catch((err) => {
                 console.log("error: ", err);
