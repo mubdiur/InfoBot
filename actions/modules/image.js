@@ -6,8 +6,8 @@ const unsafe = require('./unsafe')
 module.exports = {
      helptext: "Searches for images on the web",
      getReply: async (msg, text) => {
-          if (unsafe(text)) {
-               msg.reply("It is unsafe to search that.");
+          if (!msg.channel.nsfw && unsafe(text)) {
+               msg.reply("It is unsafe to search that. Please use a NSFW channel.");
                return null;
           }
           if (text.trim().length > 0) {
@@ -16,7 +16,7 @@ module.exports = {
                 */
                gis({
                     searchTerm: text,
-                    queryStringAddition: '&safe=active'
+                    queryStringAddition: (msg.channel.nsfw) ?  '' : '&safe=active'
                }, (error, results) => {
                     if (error) {
                          console.log(error);

@@ -7,16 +7,25 @@ const { decode } = require('html-entities');
 module.exports = {
      helptext: "Searches on the web.",
      getReply: async (msg, text) => {
-          if (unsafe(text)) {
-               msg.reply("It is unsafe to search that.");
+          if (!msg.channel.nsfw && unsafe(text)) {
+               msg.reply("It is unsafe to search that. Please use NSFW channel");
                return null;
           }
           if (text.trim().length > 0) {
 
-               const results = await DDG.search(text, {
+               const resultsSafe = await DDG.search(text, {
                     safeSearch: DDG.SafeSearchType.STRICT
                });
-               const resArray = Array.from(results.results);
+
+               const resultsUnsafe = await DDG.search(text, {
+                    safeSearch: DDG.SafeSearchType.OFF
+               });
+               let resArray = [];
+               if (msg.channel.nsfw) {
+                    resArray = Array.from(resultsUnsafe.results);
+               } else {
+                    resArray = Array.from(resultsSafe.results);
+               }
                /**
                 * for now just show the first one
                 */
