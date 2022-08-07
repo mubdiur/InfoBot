@@ -7,7 +7,7 @@ module.exports = {
      helptext: "Searches for images on the web",
      getReply: async (msg, text) => {
           if (!msg.channel.nsfw && unsafe(text)) {
-               msg.reply("It is unsafe to search that. Please use a NSFW channel.");
+               msg.reply("It is unsafe to search that. Please use an NSFW channel.");
                return null;
           }
           if (text.trim().length > 0) {
