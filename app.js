@@ -11,6 +11,19 @@ const LanguageTranslatorV3 = require("ibm-watson/language-translator/v3");
 const { IamAuthenticator } = require("ibm-watson/auth");
 
 const stringSimilarity = require("string-similarity");
+
+const express = require('express')
+const app = express()
+const port = process.env.PORT;
+
+app.get('/', (req, res) => {
+    res.send('online!')
+})
+
+const server = app.listen(port, () => {
+    console.log(`app running!`)
+})
+
 /**
  * Discord Client
  */
@@ -40,7 +53,12 @@ client.on("message", async (msg) => {
         msg.lineReply("Pong");
         return;
     }
-    if (lower.startsWith("info")) {
+    if (lower === "info shutdown now" && msg.author.id === '375644759298932740') {
+        server.close();
+        client.destroy();
+    }
+    else if (lower.startsWith("info")) {
+
         const prefixless = msg.content.substr(4).trim();
         const prefixlesslower = msg.content.substr(4).toLowerCase().trim();
         /**
@@ -103,4 +121,3 @@ client.on("message", async (msg) => {
 });
 
 client.login(process.env.BOT_TOKEN);
-keepAlive();
