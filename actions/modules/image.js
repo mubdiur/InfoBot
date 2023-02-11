@@ -6,54 +6,62 @@ const unsafe = require('./unsafe')
 module.exports = {
      helptext: "Searches for images on the web",
      getReply: async (msg, text) => {
-          if (!msg.channel.nsfw && unsafe(text)) {
-               msg.reply("It is unsafe to search that. Please use an NSFW channel.");
-               return null;
-          }
-          if (text.trim().length > 0) {
-               /**
-                * Get the search result
-                */
-               gis({
-                    searchTerm: text,
-                    queryStringAddition: (msg.channel.nsfw) ?  '' : '&safe=active'
-               }, (error, results) => {
-                    if (error) {
-                         console.log(error);
+          return new Promise(async (mResolve) => {
+               try {
+
+                    if (!msg.channel.nsfw && unsafe(text)) {
+                         msg.reply("It is unsafe to search that. Please use an NSFW channel.");
+                         return null;
                     }
-                    else {
-                         const links = Array.from(results).map(each => each.url)
+                    if (text.trim().length > 0) {
                          /**
-                          * for now just show the first one
+                          * Get the search result
                           */
-                         const embeds = [];
-                         let linkslen = 10;
-                         if (links.length < 10) linkslen = links.length
-                         for (let i = 0; i < links.length && i < 10; i++) {
-                              const embed = new MessageEmbed()
-                                   .setAuthor(text + ` ${i + 1} of ${linkslen}`)
-                                   .setImage(links[i])
-                              embeds.push(embed)
-                         }
-                         if (embeds.length < 1) {
-                              msg.reply('No image found for that search term!');
-                         } else {
-                              new Pagination.Embeds()
-                                   .setArray(embeds)
-                                   .setChannel(msg.channel)
-                                   .setDisabledNavigationEmojis(['delete', 'jump'])
-                                   .setNavigationEmojis({
-                                        back: '⬅️',
-                                        forward: '➡️'
-                                   })
-                                   .setTimeout(180000)
-                                   .build()
-                         }
+                         gis({
+                              searchTerm: text,
+                              queryStringAddition: (msg.channel.nsfw) ? '' : '&safe=active'
+                         }, (error, results) => {
+                              if (error) {
+                                   console.log(error);
+                              }
+                              else {
+                                   const links = Array.from(results).map(each => each.url)
+                                   /**
+                                    * for now just show the first one
+                                    */
+                                   const embeds = [];
+                                   let linkslen = 10;
+                                   if (links.length < 10) linkslen = links.length
+                                   for (let i = 0; i < links.length && i < 10; i++) {
+                                        const embed = new MessageEmbed()
+                                             .setAuthor(text + ` ${i + 1} of ${linkslen}`)
+                                             .setImage(links[i])
+                                        embeds.push(embed)
+                                   }
+                                   if (embeds.length < 1) {
+                                        msg.reply('No image found for that search term!');
+                                   } else {
+                                        new Pagination.Embeds()
+                                             .setArray(embeds)
+                                             .setChannel(msg.channel)
+                                             .setDisabledNavigationEmojis(['delete', 'jump'])
+                                             .setNavigationEmojis({
+                                                  back: '⬅️',
+                                                  forward: '➡️'
+                                             })
+                                             .setTimeout(180000)
+                                             .build()
+                                   }
+
+                              }
+                         });
 
                     }
-               });
-
-          }
-          return null;
+                    mResolve(null)
+               } catch (e) {
+                    console.log(e)
+                    mResolve(null)
+               }
+          })
      }
 }

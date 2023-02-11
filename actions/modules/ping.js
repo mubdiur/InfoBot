@@ -1,6 +1,6 @@
 module.exports = {
     helptext: "Replies with `Pong`.",
-    getReply: (msg, text) => {
+    getReply: (_1, _2) => {
         return 'Pong'
     }
 }
